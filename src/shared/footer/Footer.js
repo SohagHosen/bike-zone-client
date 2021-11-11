@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <Box component="footer" sx={{ backgroundColor: '#1f1f1f', py: 6, color: "white" }}>
+    <Box style={{ zIndex: 1 }} component="footer" sx={{ backgroundColor: '#1f1f1f', py: 6, color: "white" }}>
       <Container maxWidth="lg">
         <Typography variant="h6" align="center" gutterBottom>
           BIKE ZONE

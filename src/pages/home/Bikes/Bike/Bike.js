@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import LinesEllipsis from 'react-lines-ellipsis'
+import { useHistory } from 'react-router-dom'
 
 const Bike = ({ bike }) => {
-
+  const history = useHistory()
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -31,7 +32,7 @@ const Bike = ({ bike }) => {
         <Typography sx={{ pt: 1 }} gutterBottom variant="body1" >
           Price: ${bike.price}
         </Typography>
-        <Button variant="contained">Buy Now</Button>
+        <Button onClick={() => history.push('/order')} variant="contained">Order now</Button>
       </CardActions>
     </Card>
   )

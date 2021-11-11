@@ -1,14 +1,16 @@
 import React from 'react'
 import { Button, Container, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import { useHistory } from 'react-router-dom'
 import bikeImg from '../../../assets/images/2021 MT-10.png'
 
 import './heroSection.css'
 
 const HeroSection = () => {
+  const history = useHistory()
   return (
-    <Box sx={{ minHeight: "calc(100vh - 48px)", backgroundColor: "#1f1f1f" }}>
-      <Container>
+    <Box sx={{ minHeight: "calc(100vh - 45px)", backgroundColor: "#1f1f1f" }}>
+      <Container sx={{ pt: 5 }}>
         <Grid container spacing={2} >
           <Grid item xs={12} md={6}>
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
@@ -26,7 +28,7 @@ const HeroSection = () => {
                 <Typography sx={{ color: "white", my: 3 }} variant='body1'>
                   The <span style={{ color: "#1976d2" }}>Bike Zone</span> Shop showcase a large selection of the latest new Yamaha models, plus an extensive choice of top quality used motorcycles. We also keep a great range of Yamaha demonstrator models and if you bring your bike in with you, we can value it for part exchange and work out a deal that suits you.
                 </Typography>
-                <Button variant="contained">EXPLORE</Button>
+                <Button onClick={() => history.push('/explore')} variant="contained">EXPLORE</Button>
               </Box>
             </Box>
           </Grid>

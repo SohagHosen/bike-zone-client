@@ -1,27 +1,24 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
-
+import { Button, Card, CardContent, Typography } from "@mui/material";
+import { useHistory } from 'react-router-dom'
 const ExploreProduct = ({ bike }) => {
+  const history = useHistory()
   return (
-    <Card sx={{ display: "flex", my: 3, border: 0, p: 2 }}>
-      <img src={bike.img} style={{ width: "200px" }} alt="" />
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="h5">
-            {bike.title}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            color="text.secondary"
-            component="div"
-          >
-            {bike.description}
-          </Typography>
-        </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}></Box>
-      </Box>
-    </Card>
+    <Card>
+      <img src={bike.img} style={{ maxWidth: "500px", width: "100%" }} alt="" />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {bike.title}
+        </Typography>
+        <Typography sx={{ height: 60 }} variant="body1" color="text.secondary">
+          {bike.description}
+        </Typography>
+        <Typography sx={{ mt: 2 }} variant="subtitle1" color="text.secondary">
+          Price: ${bike.price}
+        </Typography>
+        <Button onClick={() => history.push('/order')} sx={{ width: "100%", mt: 2 }} variant="contained">Order now</Button>
+      </CardContent>
+    </Card >
   );
 };
 
