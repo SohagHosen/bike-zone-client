@@ -15,6 +15,7 @@ const Navigation = () => {
             <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold" }} to="/"> BIKE ZONE</Link>
           </Typography>
           <Box sx={{ flexGrow: 1 }}>
+            <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold", marginRight: "10px" }} to="/">Home</Link>
             <Link style={{ textDecoration: "none", color: "white", fontWeight: "bold" }} to="/explore">Explore</Link>
           </Box>
           {user.email && <>

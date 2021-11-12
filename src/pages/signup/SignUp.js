@@ -12,9 +12,10 @@ import { getAuth, updateProfile } from "firebase/auth";
 
 import useAuth from '../../hooks/useAuth'
 import { useHistory, useLocation } from 'react-router-dom'
+import axios from 'axios';
 const SignUp = () => {
   const auth = getAuth();
-  const { createUser, login, setUser } = useAuth();
+  const { createUser, setUser } = useAuth();
 
   const history = useHistory();
   let location = useLocation();
@@ -37,15 +38,12 @@ const SignUp = () => {
         updateProfile(auth.currentUser, {
           displayName: name
         }).then(() => {
-          console.log(user);
+          const postUser = { name, email, role: "subscriber" };
+          axios.post('https://aqueous-savannah-91729.herokuapp.com/users', postUser).then(res => {
+          }).catch(err => console.log(err));
         }).catch(() => { });
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error);
-        // ..
-      });
+      .catch((error) => console.log(error));
   };
 
 
@@ -53,7 +51,8 @@ const SignUp = () => {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          my: 8,
+          mb: 8,
+          mt: 15,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

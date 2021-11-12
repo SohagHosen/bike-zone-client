@@ -6,27 +6,35 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 
 
 
 
 const Login = () => {
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
+
+  const { login, setUser } = useAuth()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    login(data.get('email'), data.get('password')).then((result) => {
+      history.replace(from);
+      setUser(result.user);
+    }).catch((err) => { })
+
   };
   return (
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          my: 8,
+          mb: 8,
+          mt: 15,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

@@ -1,27 +1,27 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system'
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Review from './Review';
 
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState([])
+
+  useEffect(() => {
+    axios('https://aqueous-savannah-91729.herokuapp.com/reviews').then(res => setReviews(res.data)).catch(err => console.log(err))
+
+  }, [])
   return (
     <Box sx={{ my: 10 }}>
+      <Typography sx={{ mb: 5 }} variant="h4">
+        Customer Reviews
+      </Typography>
       <Carousel responsive={responsive}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-              Reviews
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-          </CardContent>
-        </Card>
+        {reviews?.map(review => <Review key={review._id} review={review} />)}
+
       </Carousel>
     </Box>
   )

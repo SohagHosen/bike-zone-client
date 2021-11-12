@@ -1,4 +1,5 @@
-import { Button, Card, CardContent, Container, Grid, TextField, Typography } from '@mui/material'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Button, CardContent, Container, Grid, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -6,24 +7,35 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import useAuth from '../../hooks/useAuth';
+import { useParams, useHistory } from 'react-router-dom';
 const Order = () => {
   const [bike, setBike] = useState({})
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState(new Date().toLocaleDateString());
+  const { id } = useParams()
   const { user } = useAuth()
+
+  const history = useHistory()
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email')
-    const password = data.get('password')
+    const model = data.get('model')
     const name = data.get('name')
-    console.log();
+    const price = data.get('price')
+    const newOrder = { email, userName: name, bikeModel: model, price, orderDate: value, bikeImg: bike.img, status: 'pending' }
+
+    axios.post('https://aqueous-savannah-91729.herokuapp.com/orders', newOrder).then(res => {
+      if (res.data.insertedId) {
+        history.push('/dashboard')
+      }
+    }).catch(err => console.log(err));
   }
 
 
   useEffect(() => {
-    axios(`http://localhost:5000/bikes/${'618ac3498648ca8f9200b0ac'}`).then(res => setBike(res.data))
+    axios(`https://aqueous-savannah-91729.herokuapp.com/bikes/${id}`).then(res => setBike(res.data))
   }, [])
-  console.log(bike);
   return (
     <Container sx={{ mt: 10, mb: 5 }}>
       <Grid container spacing={2}>
@@ -51,49 +63,54 @@ const Order = () => {
               alignItems: 'center',
             }}
           >
-            <Box component="form" onSubmit={(handleSubmit) => { }} sx={{ mt: 3 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={12}>
+                  <Typography variant="subtitle1">Name</Typography>
                   <TextField
-                    disabled
                     fullWidth
                     name="name"
-                    value={user.displayName}
+                    value={user.displayName || ''}
                   />
 
                 </Grid> <Grid item xs={12} sm={12}>
+                  <Typography variant="subtitle1">Email</Typography>
+
                   <TextField
-                    disabled
                     fullWidth
                     name="email"
-                    value={user.email}
+                    value={user.email || ''}
                   />
 
                 </Grid>
                 <Grid item xs={12} sm={12}>
+                  <Typography variant="subtitle1">Bike Model</Typography>
+
                   <TextField
-                    disabled
                     fullWidth
                     name="model"
-                    value={bike.title}
+                    value={bike.title || ''}
                   />
 
                 </Grid>
 
                 <Grid item xs={12}>
+                  <Typography variant="subtitle1">Price</Typography>
+
                   <TextField
                     required
                     fullWidth
-                    disabled
-                    value={bike.price}
+                    value={bike.price || ''}
                     name="price"
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <Typography variant="subtitle1">Order Date</Typography>
+
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DesktopDatePicker
                       value={value}
-                      minDate={new Date('2017-01-01')}
+                      minDate={new Date()}
                       disabled
                       onChange={(newValue) => {
                         setValue(newValue);

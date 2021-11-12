@@ -35,10 +35,10 @@ function App() {
             <Route exact path="/signup">
               <SignUp />
             </Route>
-            <PrivateRoute exact path="/dashboard">
+            <PrivateRoute path="/dashboard">
               <Dashboard />
             </PrivateRoute>
-            <PrivateRoute exact path="/order">
+            <PrivateRoute exact path="/order/:id">
               <Order />
             </PrivateRoute>
           </Switch>

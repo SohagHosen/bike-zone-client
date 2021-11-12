@@ -8,7 +8,7 @@ import banner from '../../assets/images/banner-min.jpg'
 const Explore = () => {
   const [bikes, setBikes] = useState([]);
   useEffect(() => {
-    axios("http://localhost:5000/bikes").then((res) => setBikes(res.data));
+    axios("https://aqueous-savannah-91729.herokuapp.com/bikes").then((res) => setBikes(res.data));
   }, []);
   return (
     <>

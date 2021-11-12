@@ -16,7 +16,7 @@ const ExploreProduct = ({ bike }) => {
         <Typography sx={{ mt: 2 }} variant="subtitle1" color="text.secondary">
           Price: ${bike.price}
         </Typography>
-        <Button onClick={() => history.push('/order')} sx={{ width: "100%", mt: 2 }} variant="contained">Order now</Button>
+        <Button onClick={() => history.push(`/order/${bike._id}`)} sx={{ width: "100%", mt: 2 }} variant="contained">Order now</Button>
       </CardContent>
     </Card >
   );

@@ -17,7 +17,7 @@ const Bike = ({ bike }) => {
         <Typography gutterBottom variant="h5" component="div" noWrap>
           YAMAHA {bike.title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" component="div" color="text.secondary">
           <LinesEllipsis
             text={bike.description}
             maxLine='3'
@@ -32,7 +32,7 @@ const Bike = ({ bike }) => {
         <Typography sx={{ pt: 1 }} gutterBottom variant="body1" >
           Price: ${bike.price}
         </Typography>
-        <Button onClick={() => history.push('/order')} variant="contained">Order now</Button>
+        <Button onClick={() => history.push(`/order/${bike._id}`)} variant="contained">Order now</Button>
       </CardActions>
     </Card>
   )

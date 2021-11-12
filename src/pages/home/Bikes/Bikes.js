@@ -8,7 +8,7 @@ import Bike from './Bike/Bike'
 const Bikes = () => {
   const [bikes, setBikes] = useState([])
   useEffect(() => {
-    axios('http://localhost:5000/bikes').then(res => setBikes(res.data.slice(0, 6)))
+    axios('https://aqueous-savannah-91729.herokuapp.com/bikes').then(res => setBikes(res.data.slice(0, 6)))
 
   }, [])
   return (
